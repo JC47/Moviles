@@ -49,7 +49,7 @@ dt {
 }
 
 .navigation3{
-	display: block;
+	display: none;
 }
 
 .navigation ul li {
@@ -123,6 +123,35 @@ body, .header,.footer, .navigation {
 		font-variant: small-caps;
 		text-decoration: none;
 		display: block;
+	}
+
+	.navigation4{
+		width: 30%;
+		min-height: 20px;
+		background-color:#EF4023;
+		border-bottom: 2px solid #B5B5B5;
+		text-align: center;
+		float: left;
+		padding: 0.25em 0;
+		color: #ffffff;
+		font-variant: small-caps;
+		text-decoration: none;
+		display: block;
+	}
+
+	.navigation5{
+		display: block;
+		width: 70%;
+	}
+	.navigation5 ul li {
+		width:100%;
+		text-align: center;
+		display: block;
+		float: left;
+		padding: 0.25em 0;
+		background-color:#EF4023;
+		border-bottom: 2px solid #B5B5B5;
+		min-height: 25px;
 	}
 
 }
