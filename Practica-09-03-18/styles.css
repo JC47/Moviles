@@ -1,0 +1,137 @@
+
+/* Desktop, fixed  */
+
+/* quitar márgenes */
+body {
+	background: #FFFFFF;
+	color: #594846;
+	font: "Adobe Caslon Pro", Georgia, "Times New Roman", serif;
+}
+a, a:visited {
+	color: #42628F;
+}
+
+h1 {
+	font-size: 1.75em;
+	border: solid #D4D6D7;
+	border-width: 2px 0;
+	padding: 0.25em;
+	text-align: center;
+	font-variant: small-caps;
+}
+h2 {
+	text-align: center;
+	font-variant: small-caps;
+}
+dl {
+	margin: 0 0.5em;
+}
+dt {
+	font-weight: bold;
+	margin: 0.5em 1em 0.5em 0;
+	border-bottom: 1px dashed #EF4023;
+}
+.intro {
+	font-size: 1.15em;
+	line-height: 1.3em;
+	text-align: justify;
+	margin: 0.5em;
+	font-weight: bold;
+}
+.navigation{
+	background-color:#EF4023;
+	border-bottom: 2px solid #B5B5B5;
+	min-height: 25px;
+}
+
+.navigation2{
+	display: none;
+}
+
+.navigation3{
+	display: block;
+}
+
+.navigation ul li {
+	width:30%;
+	text-align: center;
+	display: block;
+	float: left;
+	padding: 0.25em 0;
+}
+.navigation li a {
+	color: #ffffff;
+	font-variant: small-caps;
+	text-decoration: none;
+}
+.header p {
+	margin-left: -1000px;
+}
+#points ul {
+	list-style-image: url('images/point.png');
+	margin: 0.5em 0 1em 0.5em;
+	padding-left: 1em;
+}
+#points ul li {
+	margin: 0.5em 1em;
+}
+.footer {
+	background-color: #EF4023;
+	color: #ffffff;
+	text-align: center;
+	padding: .5em 0;
+	font-style: italic;
+}
+/* Structure */
+body, .header,.footer, .navigation {
+	width: 100%;
+}
+.header, .navigation, .footer {
+	clear: both;
+}
+.column {
+	margin: 10px 10px 0 0;
+	width:100%
+}
+
+.header {
+	background: url(images/img1.png) no-repeat;
+	height: 200px;
+}
+#visit {
+	width: 30%;
+	float: left;
+}
+
+
+@media only screen and (max-width: 480px){
+	#points{
+		width: 100%;
+	}
+	.navigation{
+		display: none;
+	}
+	.navigation2{
+		width: 100%;
+		min-height: 20px;
+		background-color:#EF4023;
+		border-bottom: 2px solid #B5B5B5;
+		text-align: center;
+		float: left;
+		padding: 0.25em 0;
+		color: #ffffff;
+		font-variant: small-caps;
+		text-decoration: none;
+		display: block;
+	}
+
+}
+
+#points {
+	width: 30%;
+	float: right;
+}
+#main {
+	width: 30%;
+	float:left;
+}
