@@ -5,10 +5,19 @@
 		<link rel="stylesheet" href="styles.css">
 
 		<script type="text/javascript">
-			document.addEventListener('load', function () {
-				var element = document.getElementById('menu');
-				console.log(element);
-				element.addEventListener('click', function () { alert('Perro'); });
+			window.addEventListener('load', function(){
+				document.getElementById('menu').addEventListener('click',function(){
+					var e1 = document.getElementById('menu');
+					var e2 = document.getElementById('lista');
+					if(e1.className=="navigation2"){
+						e1.className = "navigation4";
+						e2.className = "navigation5";
+					}
+					else{
+						e1.className = "navigation2";
+						e2.className = "navigation3";
+					}
+				}, false);
 			});
 		</script>
 	</head>
@@ -26,13 +35,12 @@
 			Menu
 		</div>
 		<div class="navigation3" id="lista">
-			<ul>
+			<ul >
 				<li><a href="/">Inicio</a></li>
 				<li><a href="mobilefirst.html">Mobile First</a></li>
 				<li><a href="acerca.html">Acerca de</a></li>
 			</ul>
 		</div>
-
 		<div class="header">
 			<p >Aplicaicones Móviles</p>
 		</div>

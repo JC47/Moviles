@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Practica</title>
+    <style type="text/css">
+      *{
+        text-transform: uppercase;
+        font-family: Helvetica;
+        text-align: center;
+      }
+      header,nav,ul,li{
+        width: 100%
+      }
+      ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        float: left;
+      }
+      li{
+        border-bottom: 1px solid #2e3034;
+        background: #00ced7;
+        margin: 0;
+        padding: 20px 0;
+        float: left;
+      }
+      .columna{
+        width: 50%;
+        float:left;
+        padding: 20px 0
+      }
+      .izq{
+        background: #2e3034;
+        color:#fff;
+      }
+      .der{
+        background: #00889c; color:#fff; outline:1px solid #2e3034;
+      }
+      nav{
+        height: 1px;
+        overflow: hidden;
+        width: 100%;
+        outline:1px solid #2e3034;
+        cursor:pointer;
+        -weblit-transition: heigh 1s;
+        transition: heigh 1s;
+      }
+      nav.expandif{height: 235px}
+
+      @media(min-width:700px){
+        #logo{width: 200px;}
+        #menu{display: none;}
+        nav,nav.expandif{
+          height: 60px;
+          width: 500px;
+          float:right;
+        }
+        ul{width: 500px;}
+        li{width: 25%;background: #fff;}
+        article{float: left;}
+      }
+    </style>
+    <script type="text/javascript">
+      window.addEventListener('load', function(){
+        document.getElementById('menu').addEventListener('click',function(){
+          var e1 = document.getElementById('nav');
+          if(e1.className==""){
+            e1.className = e1.className + 'expandif'
+          }
+          else{
+            e1.className = "";
+          }
+        }, false);
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="columna izq" id="logo">
+        Logo
+      </div>
+      <div class="columna der" id="menu">
+        &#9976;
+        Menu
+      </div>
+    </header>
+    <nav id="nav">
+      <ul>
+        <li>Inicio</li>
+        <li>Acerca de</li>
+        <li>Productos</li>
+        <li>Contacto</li>
+      </ul>
+    </nav>
+    <article>
+      <h2>Página Principal</h2>
+      <p>En este caso se esta haciendo un diseño donde se toma en cuenta primero
+      el diseño para el dispositivo móvil y despues pata los dispositivos más grandes
+      . El menú adquiere una apariencia diferente, tiene una pequeña animación y se añade
+      javascript para hacer el cambio</p>
+    </article>
+  </body>
+</html>
