@@ -6,76 +6,83 @@
   </head>
   <body>
   <div id="content">
-    <p id="log">
-    </p>
-
-    <script type="text/javascript">
-      document.getElementById('content').innerHTML =
-      '<h4>Base de datos</h4>'+'<ul id="results"></ul>'+
-      '<button onclick="newRecord()">Nuevo</button>'+
-      '<button onclick="createTable()">Crear Tabla</button>'+
-      '<button onclick="dropTable()">Borrar Tabla</button>';
-
-      var db;
-      var log = document.getElementById('log');
-      db = openDataBase("DBTest","1.0","DB Ejemplo",200000);
-      showRecord();
-      document.getElementById('results').addEventListener('click', function(e) {
-        e.preventDefault();
-      }),false;
-
-      function onError(tx,error) {
-        log.innerHTML += '<p>' + error.message + '</p>';
-      }
-
-      function showRecord() {
-        document.getElementById('results').innerHTML = '';
-        db.transaction(function(tx) {
-          tx.executeSql("SELECT * FROM tabla1",[],function(tx,result) {
-            for (var i = 0,item=null; i < result.rows.length; i++) {
-              item = result.rows.item(i);
-              document.getElementById('results').innerHTML +=
-              '<li><span contenteditable="true" onkeyup="updateRecord('+item['id']+',this)">'+
-              item['text'] + '</span> <a href="#" onclick="deleteRecord('+item['id']+')">x</a></li>';
-            }
-          });
-        });
-      }
-
-      function createTable() {
-        db.transaction(function(tx) {
-          tx.executeSql("CREATE TABLE tabla1(id REAL UNIQUE, text TEXT)",[],function(tx) {
-            log.innerHTML = 'Tabla creada';
-          },onError);
-        });
-      }
-
-      function newRecord() {
-        var num = Math.round(Math.random() * 10000);
-        db.transaction(function(tx) {
-          tx.executeSql("INSERT INTO tabla1(id,text) VALUES (?,?)", [num,'Texto en la tabla...'],
-          function(tx,result) {
-            log.innerHTML = 'registro añadido';
-            showRecord();
-          },onError);
-        });
-      }
-
-      function updateRecord(id, textE1) {
-        db.transaction(function(tx) {
-          tx.executeSql("UPDATE tabla1 SET text = ? WHERE id = ?",[textE1.innerHTML,id],null,onError);
-        });
-      }
-
-      function deleteRecord(id) {
-        db.transaction(function(tx) {
-          tx.executeSql("DELETE FROM tabla1 WHERE id=?",[id],
-          function(tx,result) {
-            showRecord();
-          },onError);
-        });
-      }
-    </script>
   </div>
+  <p id="content2"></p>
+  <script type="text/javascript">
+    document.getElementById('content').innerHTML =
+    '<h4>Base de datos</h4>'+'<ul id="results"></ul>'+
+    '<button onclick="newRecord()">Nuevo</button>'+
+    '<button onclick="createTable()">Crear Tabla</button>'+
+    '<button onclick="dropTable()">Borrar Tabla</button>';
+
+    var db;
+    document.getElementById('content2').innerHTML = "<p>Perro</p>";
+    db = openDatabase("DBTest","1.0","DB Ejemplo",200000);
+    showRecord();
+    document.getElementById('results').addEventListener('click', function(e) {
+      e.preventDefault();
+    }),false;
+
+    function onError(tx,error) {
+      content2.innerHTML += '<p>' + error.message + '</p>';
+    }
+
+    function showRecord() {
+      document.getElementById('results').innerHTML = '';
+      db.transaction(function(tx) {
+        tx.executeSql("SELECT * FROM tabla1",[],function(tx,result) {
+          for (var i = 0,item=null; i < result.rows.length; i++) {
+            item = result.rows.item(i);
+            document.getElementById('results').innerHTML +=
+            '<li><span contenteditable="true" onkeyup="updateRecord('+item['id']+',this)">'+
+            item['text'] + '</span> <a href="#" onclick="deleteRecord('+item['id']+')">x</a></li>';
+          }
+        });
+      });
+    }
+
+    function createTable() {
+      db.transaction(function(tx) {
+        tx.executeSql("CREATE TABLE tabla1(id REAL UNIQUE, text TEXT)",[],function(tx) {
+          content2.innerHTML = 'Tabla creada';
+        },onError);
+      });
+    }
+
+    function newRecord() {
+      var num = Math.round(Math.random() * 10000);
+      db.transaction(function(tx) {
+        tx.executeSql("INSERT INTO tabla1(id,text) VALUES (?,?)", [num,'Texto en la tabla...'],
+        function(tx,result) {
+          content2.innerHTML = 'registro añadido';
+          showRecord();
+        },onError);
+      });
+    }
+
+    function updateRecord(id, textE1) {
+      db.transaction(function(tx) {
+        tx.executeSql("UPDATE tabla1 SET text = ? WHERE id = ?",[textE1.innerHTML,id],null,onError);
+      });
+    }
+
+    function deleteRecord(id) {
+      db.transaction(function(tx) {
+        tx.executeSql("DELETE FROM tabla1 WHERE id=?",[id],
+        function(tx,result) {
+          showRecord();
+        },onError);
+      });
+    }
+
+    function dropTable() {
+      db.transaction(function(tx) {
+        tx.executeSql('DROP TABLE tabla1',[],function(tx,result) {
+          content2.innerHTML = 'Tabla borrada';
+          showRecord();
+        });
+      });
+    }
+  </script>
   </body>
 </html>
