@@ -12,13 +12,13 @@
     <script type="text/javascript">
       document.getElementById('content').innerHTML =
       '<h4>Base de datos</h4>'+'<ul id="results"></ul>'+
-      '<button onclick="newRecord()"></button>'+
-      '<button onclick="createTable()"></button>'+
-      '<button onclick="dropTable()"></button>';
+      '<button onclick="newRecord()">Nuevo</button>'+
+      '<button onclick="createTable()">Crear Tabla</button>'+
+      '<button onclick="dropTable()">Borrar Tabla</button>';
 
       var db;
       var log = document.getElementById('log');
-      bd = openDataBase("DBTest","1.0","DB Ejemplo",200000);
+      db = openDataBase("DBTest","1.0","DB Ejemplo",200000);
       showRecord();
       document.getElementById('results').addEventListener('click', function(e) {
         e.preventDefault();
@@ -43,7 +43,7 @@
       }
 
       function createTable() {
-        bd.transaction(function(tx) {
+        db.transaction(function(tx) {
           tx.executeSql("CREATE TABLE tabla1(id REAL UNIQUE, text TEXT)",[],function(tx) {
             log.innerHTML = 'Tabla creada';
           },onError);
