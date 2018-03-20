@@ -1,5 +1,6 @@
 // All usefull objects and shortcuts to simplify coding
 let objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
+//let objects1 = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o'];
 
     // Useful selectors shortened
     var container = document.getElementsByClassName('container');
@@ -128,6 +129,12 @@ function resetTimer(timer) {
     if (timer) {
         clearInterval(timer);
     }
+}
+
+function restarted() {
+  restart.addEventListener('click',function() {
+    init();
+  },false);
 }
 
 init();
