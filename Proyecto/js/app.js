@@ -2,6 +2,7 @@
 //let objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
 //let objects1 = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o'];
 //let objects2 = ['adjust','adjust','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database'];
+let objects = ['perro'];
 
     // Useful selectors shortened
     var container = document.getElementsByClassName('container');
@@ -46,7 +47,8 @@ function init() {
     movesTag.innerHTML = 0;
 
     for (let i = 0; i < allCards.length; i++) {
-        deck.innerHTML+='<li class="card"><i class="fa fa-' + allCards[i] + '"></i></li>';
+        //deck.innerHTML+='<li class="card"><i class="fa fa-' + allCards[i] + '"></i></li>';
+        deck.innerHTML += '<li class="card"><img src="./img/'+allCards[i]+'.jpg"></li>';
     }
     addCardListener();
 
