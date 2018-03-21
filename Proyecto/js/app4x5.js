@@ -1,7 +1,6 @@
-// All usefull objects and shortcuts to simplify coding
-let objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
-//let objects1 = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o'];
-//let objects2 = ['adjust','adjust','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database'];
+let objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond','user','user','tree','tree'];
+//let objects1 = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o','taxi','taxi','plug','plug'];
+//let objects2 = ['whatsapp','whatsapp','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database','youtube','youtube','wordpress','wordpress'];
 
     // Useful selectors shortened
     var container = document.getElementsByClassName('container');
