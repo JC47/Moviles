@@ -1,3 +1,11 @@
+
+var container = document.getElementsByClassName('container');
+var scorePanel = document.getElementsByClassName('score-panel');
+var movesTag = document.getElementById('moves');
+var timer = document.getElementById('timer');
+var restart = document.getElementsByClassName('restart');
+var deck = document.getElementById('deck');
+
 var ruta = function () {
   var query_string = {};
   var query = window.location.search.substring(1);
@@ -17,39 +25,56 @@ var ruta = function () {
 }();
 
 var tema = parseInt(ruta.tema);
+var tamanio = parseInt(ruta.tamanio);
 
 let objects = [];
 
 if(tema == 1){
-  objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
+  if(tamanio == 1){
+    deck.className += ' m4x5';
+    objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond'];
+  }
+  else{
+    objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond','user','user','tree','tree'];
+    deck.className += ' m4x5';
+  }
+
 }
 else{
   if(tema == 2){
-    objects = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o'];
+    if(tamanio == 1){
+      deck.className += ' m4x5';
+      objects = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o'];
+    }
+    else{
+      objects = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o','taxi','taxi','plug','plug'];
+      deck.className += ' m4x5';
+    }
+
   }
   else{
-    objects = ['adjust','adjust','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database'];
+    if(tamanio == 1){
+      deck.className += ' m4x5';
+      objects = ['adjust','adjust','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database'];
+    }
+    else{
+      objects = ['whatsapp','whatsapp','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database','youtube','youtube','wordpress','wordpress'];
+      deck.className += ' m4x5';
+    }
+
   }
 }
 
-    // Useful selectors shortened
-    var container = document.getElementsByClassName('container');
-    var scorePanel = document.getElementsByClassName('score-panel');
-    var movesTag = document.getElementById('moves');
-    var timer = document.getElementById('timer');
-    var restart = document.getElementsByClassName('restart');
-    var deck = document.getElementById('deck');
 
-    // Set variables to shorten code
-    var nowTime;
-    var allOpen = [];
-    var match = 0;
-    var second = 0;
-    var moves = 0;
-    var wait = 420;
-    var totalCard = objects.length / 2;
+var nowTime;
+var allOpen = [];
+var match = 0;
+var second = 0;
+var moves = 0;
+var wait = 420;
+var totalCard = objects.length / 2;
 
-// Shuffling function: enables that no two games have the same card arrangement
+
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -63,13 +88,11 @@ function shuffle(array) {
     return array;
 }
 
-// The function init() enables the game to begin
+
 function init() {
 
-    // The shuffle function shuffles the objects array
     let allCards = shuffle(objects);
     deck.innerHTML = '';
-    // The game starts with no matching cards and zero moves
     match = 0;
     moves = 0;
     movesTag.innerHTML = 0;
@@ -85,16 +108,12 @@ function init() {
     initTime();
 }
 
-// Add boostrap modal alert window showing time, moves, score it took to finish the game, toggles when all pairs are matched.
 function gameOver(moves) {
   alert("Terminaste en " + second + " segundos, con " +moves+ " movimientos");
   updateRecord(moves, second);
   window.location="puntuacion.html";
-  //init();
 }
 
-// This function allows each card to be validated that is an equal match to another card that is clicked on to stay open.
-// If cards do not match, both cards are flipped back over.
 let addCardListener = function () {
 
     var cardsTemp = deck.getElementsByClassName("card");
@@ -148,7 +167,6 @@ let addCardListener = function () {
     }
 }
 
-// Initiates the timer as soon as the game is loaded
 function initTime() {
     nowTime = setInterval(function () {
         timer.innerHTML = ''+second;
@@ -156,7 +174,6 @@ function initTime() {
     }, 1000);
 }
 
-// Resets the timer when the game ends or is restarted
 function resetTimer(timer) {
     if (timer) {
         clearInterval(timer);
