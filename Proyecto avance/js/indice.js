@@ -1,7 +1,10 @@
 var db;
 var log = document.getElementById('log');
 db = openDatabase("DBTest", "1.0", "BD Ejemplo", 200000);
-createTable();
+
+if(dropRecords()){
+	createTable();
+}
 
 function createTable() {
 	db.transaction(function(tx) {
@@ -9,6 +12,13 @@ function createTable() {
 			log.innerHTML = 'Tabla Creada'
 		}, onError);
 	});
+}
+
+function dropRecords() {
+	db.transaction(function(tx) {
+			tx.executeSql("DELETE FROM ejemplo",[],function(tx) {}, onError);
+	});
+	return true;
 }
 
 function onError(tx, error) {

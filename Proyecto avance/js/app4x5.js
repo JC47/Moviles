@@ -1,6 +1,33 @@
-let objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond','user','user','tree','tree'];
-//let objects1 = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o','taxi','taxi','plug','plug'];
-//let objects2 = ['whatsapp','whatsapp','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database','youtube','youtube','wordpress','wordpress'];
+var ruta = function () {
+  var query_string = {};
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (typeof query_string[pair[0]] === "undefined") {
+      query_string[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof query_string[pair[0]] === "string") {
+      var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+      query_string[pair[0]] = arr;
+    } else {
+      query_string[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  }
+  return query_string;
+}();
+
+var tema = parseInt(ruta.tema);
+if(tema == 1){
+  objects = ['bicycle', 'bicycle', 'leaf', 'leaf', 'cube', 'cube', 'anchor', 'anchor', 'paper-plane-o', 'paper-plane-o', 'bolt', 'bolt', 'bomb', 'bomb', 'diamond', 'diamond','user','user','tree','tree'];
+}
+else{
+  if(tema == 2){
+    objects = ['bell','bell','building-o','building-o','flag','flag','heart','heart','compass','compass','image','image','save','save','hourglass-o','hourglass-o','taxi','taxi','plug','plug'];
+  }
+  else{
+    objects = ['whatsapp','whatsapp','ambulance','ambulance','android','android','apple','apple','book','book','bug','bug','camera','camera','database','database','youtube','youtube','wordpress','wordpress'];
+  }
+}
 
     // Useful selectors shortened
     var container = document.getElementsByClassName('container');
@@ -165,4 +192,3 @@ function showRecords() {
 		});
 	});
 }
-
