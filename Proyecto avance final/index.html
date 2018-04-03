@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Memorama</title>
+	<link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+
+	<div class="grid-container">
+		<div class="item1">
+			<!--p id="log">LOG</p-->
+			<h1>Memorama</h1>
+		</div>
+		
+		<div class="item2">
+			
+			<header>
+				<div id="menu" class="columna der">&#9776; Menu</div>
+			</header>
+			
+			<nav id="nav">
+				<ul>
+					<li><a href="index.html">Inicio</a></li>
+					<li><a href="selecciona.html">Escoger Memo</a></li>
+					<li><a href="puntuacion.html">Puntuaciones</a></li>
+				</ul>
+			</nav>
+		</div>
+		
+		<div class="item3">
+			<h2>Bienvenido al Memorama</h2>
+			<br>
+			<p>Ingresa tu nombre jugador para poder jugar</p>
+			<br>
+			<form action="selecciona.html">
+				<p><input type="text" id="nombre" /></p>
+				<br>
+				<p><input type="submit" onclick="registrar()" value="Aceptar" /></p>
+			</form>
+		</div>
+	</div>
+	
+	<script src="js/indice.js"></script>
+	
+</body>
+</html>

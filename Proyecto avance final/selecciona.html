@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Memorama</title>
+	<link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+
+	<div class="grid-container">
+		<div class="item1">
+			<h1 id="results"></h1>
+		</div>
+		
+		<div class="item2">
+			
+			<header>
+				<div id="menu" class="columna der">&#9776; Menu</div>
+			</header>
+			
+			<nav id="nav">
+				<ul>
+					<li><a href="index.html">Inicio</a></li>
+					<li><a href="selecciona.html">Escoger Memo</a></li>
+					<li><a href="puntuacion.html">Puntuaciones</a></li>
+				</ul>
+			</nav>
+		</div>
+		
+		<div class="item3">
+			<h3>Escoja las figuras para el memorama</h3>
+			<br>
+			<form action="memorama.html" method="get">
+			<label>Tema</label>
+			<br>
+			<select name="tema">
+				<option value="1">Figuras 1</option>
+				<option value="2">Figuras 2</option>
+				<option value="3">Figuras 3</option>
+			</select><br><br>
+			<h3>Escoja el tamaño del memorama</h3>
+			<br>
+			<label>Tamaño</label>
+			<br>
+			<select name="tamanio">
+				<option value="1">4x4</option>
+				<option value="2">4x5</option>
+			</select>
+			<br><br>
+			<p><input type="submit" value="Aceptar" /></p>
+			</form>
+		</div>
+	</div>
+
+	<script src="js/selecciona.js"></script>
+
+</body>
+</html>

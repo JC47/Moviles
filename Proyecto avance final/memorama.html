@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memorama</title>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="css/memos.css" />
+  </head>
+  <body>
+  
+	<div class="grid-container">
+		<div class="item1">
+			<h1 id="results"></h1>
+		</div>
+		
+		<div class="item2">
+			
+			<header>
+				<div id="menu" class="columna der">&#9776; Menu</div>
+			</header>
+			
+			<nav id="nav">
+				<ul>
+					<li><a href="index.html">Inicio</a></li>
+					<li><a href="selecciona.html">Escoger Memo</a></li>
+					<li><a href="puntuacion.html">Puntuaciones</a></li>
+				</ul>
+			</nav>
+		</div>
+		
+		<div class="item3">
+    <div class="container">
+        <section class="score-panel">
+            <span id="moves"></span> Movimientos | Tiempo:
+            <span id="timer">0</span> s
+            <div class="restart">
+                <i class="fa fa-repeat"></i>
+            </div>
+        </section>
+        <ul id="deck"></ul>
+    </div>
+	</div>
+	</div>
+    <script src="js/app.js"></script>
+  </body>
+</html>
