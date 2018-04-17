@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>17/04/18</title>
+    <link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.css">
+    <script src="./jquery/jquery.js"></script>
+    <script src="./jquery/jquery.mobile-1.4.5.js"></script>
+  </head>
+  <body>
+    <div id="main" data-role="page">
+      <div data-role="header">
+        <h1>El palacio de hierro</h1>
+      </div>
+
+      <div id="content" data-role="content">
+        <p>Tienda departamental</p>
+        <a href="#pag2" data-transition="pop" data-role="button" data-inline="true">Productos</a>
+      </div>
+
+      <div data-role="footer">
+        <h4>Palacio</h4>
+      </div>
+    </div>
+    <div id="pag2" data-role="page">
+      <div data-role="header">
+        <h1>Productos</h1>
+      </div>
+
+      <div id="content" data-role="content">
+        <p>Temporalmente fuera de servicio</p>
+        <a href="#pag3" data-transition="pop">Otros productos</a> <br>
+        <a href="#main">REGRESAR</a>
+      </div>
+
+      <div data-role="footer">
+        <h4>Palacio</h4>
+      </div>
+    </div>
+
+    <div id="pag3" data-role="page">
+      <div data-role="header">
+        <h1>Productos2</h1>
+      </div>
+
+      <div id="content" data-role="content">
+        <p>Disponibles en tienda</p>
+        <a href="#main">REGRESAR</a>
+      </div>
+
+      <div data-role="footer">
+        <h4>Palacio</h4>
+      </div>
+    </div>
+  </body>
+</html>
