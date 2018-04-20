@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agenda</title>
+    <link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.css">
+    <script src="./jquery/jquery.js"></script>
+    <script src="./jquery/jquery.mobile-1.4.5.js"></script>
+  </head>
+
+  <script>
+    $(document).ready(function() {
+      $('#form1').submit(guardarDatos);
+      $('#datos').on('pagebeforeshow',cargarDatos);
+      $('#main').on('pagebeforeshow',inicializar);
+      cargarDatos();
+      inicializar();
+    });
+
+    function cargarDatos() {
+      $('#username').val(localStorage.nombre);
+      $('#email').val(localStorage.correo);
+      $('#comentarios').val(localStorage.comentarios);
+    }
+
+    function inicializar() {
+      $('#h1').text('Agenda de ' +localStorage.nombre);
+      console.log(localStorage.nombre);
+    }
+
+    function guardarDatos() {
+      var len = $('#comentarios').val().lenght;
+      if(len < 10 || len > 100){
+          $('errmsg').text("Longitud del comentario invalido");
+          return false;
+      }
+      else{
+        localStorage.nombre=$('#username').val();
+        localStorage.email=$('#email').val();
+        localStorage.comentarios=$('#comentarios').val();
+        event.preventDefault();
+        return true;
+      }
+    }
+  </script>
+
+  <body>
+    <div id="main" data-theme="b" data-role="page" data-ajax="false">
+      <div data-role="header" data-position="fixed">
+        <h1 id="h1">Agenda</h1>
+        <a href="#datos" data-role="button" class="ui-btn-right" data-icon="gear">Datos</a>
+      </div>
+      <div data-role="content">
+        <ul data-role="listview" data-inset="true">
+          <li><a href="#fechas">Calendario</a></li>
+          <li><a href="#acerca">Acerca de ...</a></li>
+        </ul>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <h3>Agenda minimalista</h3>
+      </div>
+    </div>
+
+    <div id="datos" data-role="page" data-ajax="false">
+      <div data-role="header" data-theme="e" data-add-back-btn="true" data-back-btn-text="Atras">
+        <h1>Datos</h1>
+      </div>
+      <div data-role="content">
+        <form action="#" id="form1" method="post">
+          <div data-role="fieldcontain">
+            <label for="username">Nombre</label>
+            <input id="username" type="text" required placeholder="Nombre">
+          </div>
+
+          <div data-role="fieldcontain">
+            <label for="email">Correo</label>
+            <input id="email" type="email" required placeholder="e-mail">
+          </div>
+
+          <div data-role="fieldcontain">
+            <label for="comentarios">Comentaios</label>
+            <input id="comentarios" type="text" required placeholder="Mas de 10 caracteres">
+          </div>
+
+          <div id="errmsg" style="color: #f00"></div>
+          <input id="submit" type="submit" value="Guardar">
+        </form>
+      </div>
+      <div data-role="footer" data-position="fixed">
+        <h3>Agenda minimalista</h3>
+      </div>
+    </div>
+  </body>
+</html>
