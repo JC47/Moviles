@@ -6,6 +6,16 @@
 	color: #eee;
 }
 
+.tipo{
+	color: #0000ff;
+}
+
+.borrar{
+	color: #ff0000;
+	font-style: italic;
+	text-decoration: underline red;
+}
+
 /* First breakpoint is 48em (768px). 3 column layout. Tiles 250x250 pixels incl. margin at the breakpoint. */
 @media ( min-width: 48em ) {
 	.my-page .ui-content {

@@ -6,13 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.css">
+	<link rel="stylesheet" href="./estilo.css">
 	<script src="./jquery/jquery.js"></script>
 	<script src="./jquery/jquery.mobile-1.4.5.js"></script>
 
 
 <script>
    var db;
-	 db = openDatabase("DBTest","1.0","agenda",200000);
+	 db = openDatabase("Agenda","1.0","agenda",200000);
 	 createTable();
    $(document).ready(function() {
 		$("#form1").submit(guardarDatos);
@@ -42,14 +43,31 @@ function cargarDatos() {
 }
 
 function despliega() {
+	$("#desplegar").empty();
 	var fecha = sessionStorage.fechaActual;
-	$('#desplegar').empty();
 	db.transaction(function(tx) {
-		tx.executeSql("SELECT * FROM tabla1",[],function(tx,result) {
+		tx.executeSql("SELECT * FROM tabla1 WHERE fecha = ?",[fecha],function(tx,result) {
 			for (var i = 0,item=null; i < result.rows.length; i++) {
 				item = result.rows.item(i);
 				console.log(item);
-				$("#desplegar").append('<li id='+item['id']+' class="nueva"><span class="tipo">'+item['tipo']+'</span><span class="texto">'+item['nota']+'</span><span class="borrar" data-icon="delete">Borrar</span></li>');
+				if(result.rows.length == 1){
+					$("#desplegar").append('<li id='+item['id']+' class="nueva ui-li-static ui-body-inherit ui-first-child ui-last-child"><span class="tipo">'+item['tipo']+'</span> <span class="texto">'+item['nota']+'</span> <span class="borrar" data-icon="delete" onClick="borrarNota('+item['id']+')">Borrar</span></li>');
+				}
+				else{
+					if(i == 0){
+						$("#desplegar").append('<li id='+item['id']+' class="nueva ui-li-static ui-body-inherit ui-first-child"><span class="tipo">'+item['tipo']+'</span> <span class="texto">'+item['nota']+'</span> <span class="borrar" data-icon="delete" onClick="borrarNota('+item['id']+')">Borrar</span></li>');
+					}
+					else{
+						if(i == (result.rows.length-1)){
+							$("#desplegar").append('<li id='+item['id']+' class="nueva ui-li-static ui-body-inherit ui-last-child"><span class="tipo">'+item['tipo']+'</span> <span class="texto">'+item['nota']+'</span> <span class="borrar" data-icon="delete" onClick="borrarNota('+item['id']+')">Borrar</span></li>');
+						}
+						else{
+							$("#desplegar").append('<li id='+item['id']+' class="nueva ui-li-static ui-body-inherit"><span class="tipo">'+item['tipo']+'</span> <span class="texto">'+item['nota']+'</span> <span class="borrar" data-icon="delete" onClick="borrarNota('+item['id']+')">Borrar</span></li>');
+						}
+					}
+				}
+
+
 			}
 		});
 	});
@@ -100,11 +118,16 @@ function errorHandler(transaction, error) {
 }
 
 function borrarNota(id) {
+	db.transaction(function(tx) {
+		tx.executeSql("DELETE FROM tabla1 WHERE id = ?", [id],
+		function(tx,result) {console.log(tx,result);});
+	});
+	despliega();
 }
 
 function createTable() {
 	db.transaction(function(tx) {
-		tx.executeSql("CREATE TABLE IF NOT EXISTS tabla1(id REAL UNIQUE, tipo TEXT, nota TEXT, fecha TEXT)",[],function(tx) {});
+		tx.executeSql("CREATE TABLE tabla1(id REAL UNIQUE, tipo TEXT, nota TEXT, fecha TEXT)",[],function(tx) {});
 	});
 }
 
