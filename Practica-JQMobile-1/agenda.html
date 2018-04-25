@@ -29,11 +29,20 @@
 			var fecha=new Date();
 			fecha.setDate(fecha.getDate())
 			sessionStorage.fechaActual =
-			                fecha.getMonth() + 1 + '/' + fecha.getDate() + '/' + fecha.getFullYear();
+			                fecha.getMonth() + 1 + '-' + fecha.getDate() + '-' + fecha.getFullYear();
 
 		});
 
     });
+
+		function mostrarFecha() {
+			var fecha=new Date();
+			fecha.setDate(fecha.getDate())
+			sessionStorage.fechaActual =
+			                fecha.getMonth() + 1 + '-' + fecha.getDate() + '-' + fecha.getFullYear();
+			$('#idFecha').text(sessionStorage.fechaActual);
+			$(location).attr('href','#fecha');
+		}
 
 
 function cargarDatos() {
@@ -71,6 +80,13 @@ function despliega() {
 			}
 		});
 	});
+}
+
+function cambiarFecha() {
+	var fn = $('#fechaEnviada').val();
+	sessionStorage.fechaActual = fn;
+	$('#idFecha').text(sessionStorage.fechaActual);
+	$(location).attr('href','#fecha');
 }
 
 function inicializar() {
@@ -156,8 +172,8 @@ function createTable() {
        </div>
 	 	<div data-role="content">
  			<ul data-role="listview" data-inset="true">
-        		<li> <a href="#fecha" id="0"><img src="./img.jpg"> <h3> Hoy</h3></a></li>
-            	<li><a href="#fecha" id="1"><img src="./img.jpg"><input type="date" /></a>
+        		<li onClick="mostrarFecha()"><img src="./img.jpg"> <h3> Hoy</h3></a></li>
+            	<li><img src="./img.jpg"><input type="date" id="fechaEnviada"/><input data-role="button" data-theme="b" value="Entrar" onClick="cambiarFecha()"></a>
        		 </ul>
   		</div>
  		<div data-role="footer"  data-theme="e" data-position="fixed"> <h3> Agenda minimalista</h3></div>
@@ -165,7 +181,7 @@ function createTable() {
 <!-- Termina página fechas -->
 	<div data-role="page" id="fecha" data-theme="c" data-ajax="false" >
  	   <div data-role="header" data-theme="e" data-add-back-btn="true" data-back-btn-text="Atrás" >
-   			 <h1>Fecha</h1>
+   			 <h1 id="idFecha">Fecha</h1>
              <a href="#datosNuevaNota" data-role="button" data-theme="b" class="ui-btn-right" data-icon="plus">Agregar</a>
        </div>
 	 	<div data-role="content">
