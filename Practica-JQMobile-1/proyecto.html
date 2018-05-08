@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Proyecto</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.css">
+		<link rel="stylesheet" href="./estilo.css">
+		<script src="./jquery/jquery.js"></script>
+		<script src="./jquery/jquery.mobile-1.4.5.js"></script>
+	</head>
+	<body>
+		<!-- Pagina de inicio -->
+		<div data-role="page" id="main" data-theme="c" data-ajax="false">
+			 <div data-role="header" data-theme="e">
+					 <h1 id="h1">Proyecto</h1>
+				</div>
+				<div data-role="content">
+					<ul data-role="listview" data-inset="true">
+								<li> <a href="#nuevoEvento">Crear Evento</a></li>
+									<li><a href="#consultas">Consultas</a></li>
+							 </ul>
+					</div>
+				<div data-role="footer" data-theme="e" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
+		</div>
+		<!-- Formulario para nueva nota -->
+		<div data-role="page" id="nuevoEvento" data-theme="c" >
+	 	   <div data-role="header" data-theme="e" data-add-back-btn="true" data-back-btn-text="Atrás" data-ajax="false">
+	   			 <h1>Nuevo Evento</h1>
+	       </div>
+		 	<div data-role="content">
+	 			<!-- <ul data-role="listview" data-inset="true">
+      		<li>
+		         <form id="form1" action="#" method="post">
+		            <div data-role="fieldcontain">
+		              <label for="tipo">Tipo</label>
+		              <input id="tipo" name="tipo" type="text" required placeholder="Tipo de Nota: Urgente o normal" />
+		            </div>
+		              <div data-role="fieldcontain">
+		                <label for="tNota">Nota</label>
+		                <input id="tNota" name="tNota" type="text" required placeholder="Texto de la nota" />
+		              </div>
+		              <input id="submit" type="submit" value="Guardar"/>
+		  				</form>
+          </li>
+	       </ul> -->
+				 <form action"#" method="post" id="form1">
+				 </form>
+	  		</div>
+	 		<div data-role="footer" data-theme="e" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
+		</div>
+	</body>
+</html>
