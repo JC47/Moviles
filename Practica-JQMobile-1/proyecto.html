@@ -1,14 +1,134 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Proyecto</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.css">
-		<link rel="stylesheet" href="./estilo.css">
-		<script src="./jquery/jquery.js"></script>
-		<script src="./jquery/jquery.mobile-1.4.5.js"></script>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Proyecto</title>
+	    <link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.min.css">
+	    <script src="./jquery/jquery.js"></script>
+	    <script src="./jquery/jquery.mobile-1.4.5.min.js"></script>
+			<link rel="stylesheet" href="./estilo.css">
 	</head>
+	<script>
+		var db;
+	 	db = openDatabase("Agenda","1.0","agenda",200000);
+	 	createTable();
+
+		function crearEvento() {
+			var num = Math.round(Math.random() * 10000);
+			var categoria = $('input[name=categoria]:checked', '#form1').val();
+			var descripcion = $('#descripcion').val();
+			var fecha = $('#fecha').val();
+			var hora = $('#hora').val();
+			var status = $('#status').val();
+			var separado = fecha.split("-");
+			var anio = parseInt(separado[0]);
+			var mes = parseInt(separado[1]);
+			var dia = parseInt(separado[2]);
+			console.log(categoria,hora,descripcion,status,"Dia",dia,"Mes",mes,"Año",anio);
+			db.transaction(function(tx) {
+				tx.executeSql("INSERT INTO tabla1(id,categoria,descripcion,status,hora,dia,mes,anio,fecha) VALUES (?,?,?,?,?,?,?,?,?)", [num,categoria,descripcion,status,hora,dia,mes,anio,fecha],
+				function(tx,result) {console.log(tx,result);});
+			});
+			$(location).attr('href','#main');
+		}
+
+		function consultaRango() {
+			$("#cuerpo").empty();
+			var categoria = $('input[name=categoria]:checked', '#form2').val();
+			var fecha1 = $('#fecha_consultaRango1').val();
+			var fecha2 = $('#fecha_consultaRango2').val();
+			var separado1 = fecha1.split("-");
+			var separado2 = fecha2.split("-");
+			var anio1 = parseInt(separado1[0]);
+			var mes1 = parseInt(separado1[1]);
+			var dia1 = parseInt(separado1[2]);
+			var anio2 = parseInt(separado2[0]);
+			var mes2 = parseInt(separado2[1]);
+			var dia2 = parseInt(separado2[2]);
+			console.log(categoria,fecha1,fecha2);
+			db.transaction(function(tx) {
+				tx.executeSql("SELECT * FROM tabla1 WHERE categoria = ? AND anio >= ? AND anio <= ? AND mes >= ? AND mes <= ? AND dia >= ? AND dia <= ?",[categoria,anio1,anio2,mes1,mes2,dia1,dia2],function(tx,result) {
+					for (var i = 0,item=null; i < result.rows.length; i++) {
+						item = result.rows.item(i);
+						console.log(item);
+						$("#cuerpo").append('<tr><td>'+item['fecha']+'</td><td>'+item['hora']+'</td><td>'+item['categoria']+'</td><td>'+item['status']+'</td><td>'+item['descripcion']+'</td><td><a href="#editar" data-rel="popup" data-position-to="window" data-transition="pop" onclick="guardaID('+item['id']+')">Editar</a></td></tr>');
+					}
+				});
+			});
+		}
+
+		function guardaID(id) {
+			localStorage.setItem("id",id);
+		}
+
+		function eliminar() {
+			var id = localStorage.getItem('id');
+			db.transaction(function(tx) {
+				tx.executeSql("DELETE FROM tabla1 WHERE id = ?", [id],
+				function(tx,result) {console.log(tx,result);});
+			});
+			$(location).attr('href','#main');
+		}
+
+		function actualizar() {
+			var id = localStorage.getItem('id');
+			var status = $('#status_edicion').val();
+			db.transaction(function(tx) {
+				tx.executeSql("UPDATE tabla1 SET status = ? WHERE id = ?", [status, id], null, null);
+			});
+			$(location).attr('href','#main');
+		}
+
+		function consultaAnio() {
+			$("#cuerpo").empty();
+			var anio = $('#anio').val();
+			db.transaction(function(tx) {
+				tx.executeSql("SELECT * FROM tabla1 WHERE anio = ? ",[anio],function(tx,result) {
+					for (var i = 0,item=null; i < result.rows.length; i++) {
+						item = result.rows.item(i);
+						console.log(item);
+						$("#cuerpo").append('<tr><td>'+item['fecha']+'</td><td>'+item['hora']+'</td><td>'+item['categoria']+'</td><td>'+item['status']+'</td><td>'+item['descripcion']+'</td><td><a href="#editar" data-rel="popup" data-position-to="window" data-transition="pop" onclick="guardaID('+item['id']+')">Editar</a></td></tr>');
+					}
+				});
+			});
+		}
+
+		function consultaMes() {
+			$("#cuerpo").empty();
+			var anio = $('#anio_mes').val();
+			var mes = $('#mes').val();
+			db.transaction(function(tx) {
+				tx.executeSql("SELECT * FROM tabla1 WHERE anio = ? AND mes = ?",[anio,mes],function(tx,result) {
+					for (var i = 0,item=null; i < result.rows.length; i++) {
+						item = result.rows.item(i);
+						console.log(item);
+						$("#cuerpo").append('<tr><td>'+item['fecha']+'</td><td>'+item['hora']+'</td><td>'+item['categoria']+'</td><td>'+item['status']+'</td><td>'+item['descripcion']+'</td><td><a href="#editar" data-rel="popup" data-position-to="window" data-transition="pop" onclick="guardaID('+item['id']+')">Editar</a></td></tr>');
+					}
+				});
+			});
+		}
+
+		function consultaDia() {
+			$("#cuerpo").empty();
+			var dia = $('#fecha_dia').val();
+			db.transaction(function(tx) {
+				tx.executeSql("SELECT * FROM tabla1 WHERE fecha = ?",[dia],function(tx,result) {
+					for (var i = 0,item=null; i < result.rows.length; i++) {
+						item = result.rows.item(i);
+						console.log(item);
+						$("#cuerpo").append('<tr><td>'+item['fecha']+'</td><td>'+item['hora']+'</td><td>'+item['categoria']+'</td><td>'+item['status']+'</td><td>'+item['descripcion']+'</td><td><a href="#editar" data-rel="popup" data-position-to="window" data-transition="pop" onclick="guardaID('+item['id']+')">Editar</a></td></tr>');
+					}
+				});
+			});
+		}
+
+		function createTable() {
+			db.transaction(function(tx) {
+				tx.executeSql("CREATE TABLE IF NOT EXISTS tabla1(id INTEGER UNIQUE, categoria TEXT, descripcion TEXT, status TEXT, hora TEXT, dia INTEGER, mes INTEGER, anio INTEGER, fecha TEXT)",[],function(tx) {});
+			});
+		}
+	</script>
 	<body>
 		<!-- Pagina de inicio -->
 		<div data-role="page" id="main" data-theme="c" data-ajax="false">
@@ -21,33 +141,168 @@
 									<li><a href="#consultas">Consultas</a></li>
 							 </ul>
 					</div>
-				<div data-role="footer" data-theme="e" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
+				<div data-role="footer" class="jqm-footer" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
 		</div>
-		<!-- Formulario para nueva nota -->
-		<div data-role="page" id="nuevoEvento" data-theme="c" >
-	 	   <div data-role="header" data-theme="e" data-add-back-btn="true" data-back-btn-text="Atrás" data-ajax="false">
-	   			 <h1>Nuevo Evento</h1>
-	       </div>
-		 	<div data-role="content">
-	 			<!-- <ul data-role="listview" data-inset="true">
-      		<li>
-		         <form id="form1" action="#" method="post">
-		            <div data-role="fieldcontain">
-		              <label for="tipo">Tipo</label>
-		              <input id="tipo" name="tipo" type="text" required placeholder="Tipo de Nota: Urgente o normal" />
-		            </div>
-		              <div data-role="fieldcontain">
-		                <label for="tNota">Nota</label>
-		                <input id="tNota" name="tNota" type="text" required placeholder="Texto de la nota" />
-		              </div>
-		              <input id="submit" type="submit" value="Guardar"/>
-		  				</form>
-          </li>
-	       </ul> -->
-				 <form action"#" method="post" id="form1">
-				 </form>
-	  		</div>
-	 		<div data-role="footer" data-theme="e" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
+		<!-- Registro de un nuevo evento -->
+		<div data-role="page" class="jqm-demos" data-quicklinks="true" id="nuevoEvento">
+		  <div data-role="header" class="jqm-header" data-add-back-btn="true" data-back-btn-text="Atrás" data-ajax="false">
+				<h1 id="h1">Crear Evento</h1>
+		  </div>
+	    <div data-role="content" class="jqm-content">
+				<div>
+					<form id="form1">
+						<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+							<legend>Categoría: </legend>
+							<input type="radio" name="categoria" id="cita" value="Cita" checked>
+							<label for="cita">Cita</label>
+							<input type="radio" name="categoria" id="junta" value="Junta">
+							<label for="junta">Junta</label>
+							<input type="radio" name="categoria" id="entrega" value="Entrega">
+							<label for="entrega">Entrega de Proyecto</label>
+							<input type="radio" name="categoria" id="examen" value="Examen">
+							<label for="examen">Examen</label>
+							<input type="radio" name="categoria" id="otro" value="Otro">
+							<label for="otro">Otro</label>
+						</fieldset>
+						<label for="fecha">Fecha:</label>
+						<input type="date" name="fecha" id="fecha" value="">
+						<label for="hora">Hora:</label>
+						<input type="time" name="hora" id="hora" value="07:00" max="23:59" min="00:00" step="1">
+            <label for="descripcion">Descripcion</label>
+            <input id="descripcion" name="descripcion" type="text" placeholder="Descripcion" />
+						<label for="status" class="select">Status</label>
+						<select name="status" id="status" data-mini="true" data-inline="true">
+						    <option value="Pendiente">Pendiente</option>
+						    <option value="Realizado">Realizado</option>
+						    <option value="Aplazado">Aplazado</option>
+						</select>
+						<input type="button" value="Guardar" onclick="crearEvento()"/>
+					</form>
+				</div>
+			</div>
+			<div data-role="footer" class="jqm-footer" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
 		</div>
-	</body>
-</html>
+
+		<div data-role="page" class="jqm-demos" data-quicklinks="true" id="consultas">
+		  <div data-role="header" class="jqm-header" data-ajax="false">
+				<a href="#main" data-role="button" data-theme="b" class="ui-btn-left" data-icon="carat-l">Atras</a>
+				<h1 id="h1">Consultas</h1>
+		  </div>
+	    <div data-role="content" class="jqm-content">
+				<div data-demo-html="true">
+					<div data-role="tabs" id="tabs">
+				      <div data-role="navbar">
+					    <ul>
+					      <li><a href="#uno" data-ajax="false">Por rango</a></li>
+					      <li><a href="#dos" data-ajax="false">Por año</a></li>
+					      <li><a href="#tres" data-ajax="false">Por mes</a></li>
+								<li><a href="#cuatro" data-ajax="false">Por día</a></li>
+					    </ul>
+				      </div>
+				      <div class="ui-body-d ui-content">
+								<form id="form2">
+									<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+										<legend>Categoría: </legend>
+										<input type="radio" name="categoria" id="cita" value="Cita" checked>
+										<label for="cita">Cita</label>
+										<input type="radio" name="categoria" id="junta" value="Junta">
+										<label for="junta">Junta</label>
+										<input type="radio" name="categoria" id="entrega" value="Entrega">
+										<label for="entrega">Entrega de Proyecto</label>
+										<input type="radio" name="categoria" id="examen" value="Examen">
+										<label for="examen">Examen</label>
+										<input type="radio" name="categoria" id="otro" value="Otro">
+										<label for="otro">Otro</label>
+									</fieldset>
+									<div id="uno">
+										<label for="fecha">Fecha:</label>
+										<input type="date" name="fecha" id="fecha_consultaRango1" value="2018-01-01">
+										<label for="fecha">Fecha:</label>
+										<input type="date" name="fecha" id="fecha_consultaRango2" value="2020-12-31">
+										<input type="button" value="Consultar" onclick="consultaRango()"/>
+									</div>
+									<div id="dos">
+										<select name="anio" id="anio" data-inline="true">
+										    <option value="2018">2018</option>
+										    <option value="2019">2019</option>
+										    <option value="2020">2020</option>
+												<option value="2021">2021</option>
+										</select>
+										<input type="button" value="Consultar" onclick="consultaAnio()"/>
+									</div>
+									<div id="tres">
+										<label for="anio_mes">Año</label>
+				            <input id="anio_mes" name="descripcion" type="text"/>
+										<select name="mes" id="mes" data-inline="true">
+										    <option value="1">Enero</option>
+										    <option value="2">Febrero</option>
+										    <option value="3">Marzo</option>
+												<option value="4">Abril</option>
+												<option value="5">Mayo</option>
+										    <option value="6">Junio</option>
+										    <option value="7">Julio</option>
+												<option value="8">Agosto</option>
+												<option value="9">Septiembre</option>
+										    <option value="10">Octubre</option>
+										    <option value="11">Noviembre</option>
+												<option value="12">Diciembre</option>
+										</select>
+										<input type="button" value="Consultar" onclick="consultaMes()"/>
+									</div>
+									<div id="cuatro">
+										<input type="date" name="fecha_dia" id="fecha_dia" value="2018-01-01">
+										<input type="button" value="Consultar" onclick="consultaDia()"/>
+									</div>
+								</form>
+								<form>
+								    <input id="filterTable-input" data-type="search">
+								</form>
+								<table data-role="table" id="eventos" data-filter="true" data-input="#filterTable-input" class="ui-responsive">
+									<thead>
+						        <tr>
+						            <th data-priority="persist">Fecha</th>
+						            <th data-priority="2">Hora</th>
+						            <th data-priority="1">Categoría</th>
+						            <th data-priority="3">Status</th>
+						            <th data-priority="4">Descripcion</th>
+						        </tr>
+										<tbody id="cuerpo">
+
+										</tbody>
+					        </thead>
+								</table>
+								<!-- <div data-demo-html="true">
+									<div data-role="popup" id="edicion" data-theme="a" class="ui-corner-all">
+										<form>
+											<select name="status_edicion" id="status_edicion" data-inline="true">
+											    <option value="Pendiente">Pendiente</option>
+											    <option value="Aplazado">Aplazado</option>
+											    <option value="Realizado">Realizado</option>
+											</select>
+											<input type="button" value="Consultar" onclick="actualizar()"/>
+											<input type="button" value="Eliminar" onclick="eliminar()"/>
+										</form>
+									</div>
+								</div>-->
+								<div data-demo-html="true">
+									<div data-role="popup" id="editar" data-theme="a" class="ui-corner-all">
+										<form>
+											<div style="padding:10px 20px;">
+												<h3>Elige el status</h3>
+												<select name="status_edicion" id="status_edicion" data-inline="true">
+												    <option value="Pendiente">Pendiente</option>
+												    <option value="Aplazado">Aplazado</option>
+												    <option value="Realizado">Realizado</option>
+												</select>
+												<input type="button" value="Actualizar" onclick="actualizar()"/>
+												<input type="button" value="Eliminar" onclick="eliminar()"/>
+											</div>
+										</form>
+									</div>
+								</div><!--/demo-html -->
+				      </div>
+				    </div>
+				</div>
+			</div>
+			<div data-role="footer" class="jqm-footer" data-position="fixed"> <h3> JQM 3CM7 </h3></div>
+		</div>
