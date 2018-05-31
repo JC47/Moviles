@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#FF8000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="box">#FFFFFF</color>
+    <color name="f1">#FF0000</color>
+    <color name="f2">#FE642E</color>
 </resources>
