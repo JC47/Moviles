@@ -55,13 +55,23 @@
             android:text="Hora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <TimePicker
             android:id="@+id/hour"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_height="wrap_content">
-        </TimePicker>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"></TimePicker>
 
+        <TextView
+            android:text="Contacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/contacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
 
 
     </LinearLayout>
