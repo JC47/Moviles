@@ -1,8 +1,12 @@
 package com.softsofware.javiercalette.proyecto;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class base extends SQLiteOpenHelper {
 
@@ -33,12 +37,15 @@ public class base extends SQLiteOpenHelper {
         }
     }
 
-    public void check(){
-        SQLiteDatabase bd = getWritableDatabase();
-
-        if(bd!=null){
-            bd.execSQL("SELECT * FROM T1");
-            bd.close();
+    public List<Evento> listar(String d){
+        List<Evento> r = new ArrayList<>();
+        SQLiteDatabase bd = getReadableDatabase();
+        Cursor cursor = bd.rawQuery("SELECT * FROM T1 WHERE FECHA = '" +d+"'", null);
+        if(cursor.moveToFirst()){
+            do{
+                r.add(new Evento(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),R.drawable.event));
+            }while (cursor.moveToNext());
         }
+        return r;
     }
 }

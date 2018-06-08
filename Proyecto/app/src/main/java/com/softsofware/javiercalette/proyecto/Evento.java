@@ -13,7 +13,7 @@ public class Evento {
         this.img=img;
     }
 
-    public Evento() {
+    public Evento(String string, String cursorString) {
     }
 
     public String getEvento() {

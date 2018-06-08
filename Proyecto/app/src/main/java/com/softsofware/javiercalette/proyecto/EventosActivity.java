@@ -21,15 +21,11 @@ public class EventosActivity extends AppCompatActivity {
         recyclerViewEventos=(RecyclerView)findViewById(R.id.list1);
         recyclerViewEventos.setLayoutManager(new LinearLayoutManager(this));
 
-        adaptador=new EventAdapter(getEventos());
-        recyclerViewEventos.setAdapter(adaptador);
-    }
+        String f = getIntent().getExtras().getString("date_q");
 
-    public List<Evento> getEventos(){
-        List<Evento> e = new ArrayList<>();
-        e.add(new Evento("Cita","12/12/12","12:12","Pendiente","Alfredo",R.drawable.event));
-        e.add(new Evento("Junta","12/12/12","12:12","Pendiente","Alfredo",R.drawable.event));
-        e.add(new Evento("Examen","12/12/12","12:12","Pendiente","Alfredo",R.drawable.event));
-        return e;
+        base b = new base(getApplicationContext());
+
+        adaptador=new EventAdapter(b.listar(f));
+        recyclerViewEventos.setAdapter(adaptador);
     }
 }

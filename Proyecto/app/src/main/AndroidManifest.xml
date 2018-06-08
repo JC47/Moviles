@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Add" />
-        <activity android:name=".Query" />
-        <activity android:name=".EventosActivity"></activity>
+        <activity android:name=".EventosActivity" />
+        <activity android:name=".searchActivity"></activity>
     </application>
 
 </manifest>
