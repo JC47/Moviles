@@ -48,4 +48,15 @@ public class base extends SQLiteOpenHelper {
         }
         return r;
     }
+
+    public boolean isBussy(String d){
+        SQLiteDatabase bd = getReadableDatabase();
+        Cursor cursor = bd.rawQuery("SELECT * FROM T1 WHERE FECHA = '" +d+"'", null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
